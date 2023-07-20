@@ -72,3 +72,52 @@ class Solution {
 }
 ```
 
+[110. Balanced Tree](https://leetcode.com/problems/balanced-binary-tree/description/)
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    class Data {
+        boolean isBala;
+        int height;
+
+        Data(boolean isBala, int height) {
+            this.isBala = isBala;
+            this.height = height;
+        }
+    }
+
+
+    public boolean isBalanced(TreeNode root) {
+        return dfs(root).isBala;
+    }
+
+    public Data dfs(TreeNode curr) {
+        if(curr == null) {
+            return new Data(true, 0);
+        }
+
+        Data left = dfs(curr.left);
+        Data right = dfs(curr.right);
+
+        boolean isBala = left.isBala && right.isBala && Math.abs(left.height - right.height) <= 1;
+
+        return new Data(isBala, 1 + Math.max(left.height, right.height));
+    }
+}
+```
+
